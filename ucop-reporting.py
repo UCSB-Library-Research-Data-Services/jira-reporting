@@ -40,12 +40,11 @@
 #
 # The new CSV file is written to standard output.
 #
-# This script requires Pandas and the Python requests library.
+# This script requires Pandas.
 #
 # --------------------------------------------------------------------
 
 import pandas as pd
-import requests
 import sys
 
 # The only fields we care about, in the desired order, paired with new
