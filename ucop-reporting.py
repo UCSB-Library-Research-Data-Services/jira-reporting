@@ -63,8 +63,15 @@ fields = [
 ]
 
 df = pd.read_csv(sys.argv[1])
-df = df[(f[0] for f in fields)].rename(columns=dict(fields)).set_index("Issue")
-df.Date = pd.to_datetime(df.Date).apply(lambda d: d.date())
+df = (
+    df[(f[0] for f in fields)]
+    .rename(columns=dict(fields))
+    .set_index("Issue")
+)
+df.Date = (
+    pd.to_datetime(df.Date, format="%d/%b/%y %I:%M %p")
+    .apply(lambda d: d.date())
+)
 df.Requestor = df.Requestor.combine_first(df.Depositor)
 df.loc[df.Type == "Curation", "Description"] = df.Dataset
 df.drop(["Depositor", "Dataset"], axis=1, inplace=True)
